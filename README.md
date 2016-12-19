@@ -1,22 +1,29 @@
 # The knapsack problem
 
+Implementation of several algorithms for solving 1/0 knapsack problem.
+
 ## Usage
 
 Input path is expected. For example `./inst/knap_4.inst.dat` is used solution in `./sol/knap_4.sol.dat`.
 
 ```
-Usage: knapsack.py [OPTIONS]
+Usage: main.py [OPTIONS]
 
 Options:
-  --method TEXT           bruteforce/ratio/bb/dynamic/fptas
-  --path TEXT             Input file.
-  --relative-error FLOAT  Relative error for FPTAS alg.
-  --help                  Show this message and exit.
+  --method TEXT                   bruteforce/ratio/bb/dynamic/fptas/all
+  --path TEXT                     Input file.
+  --relative-error FLOAT          Relative error for FPTAS alg.
+  --solution / --no-solution      If solution file is available or not.
+                                  Default true.
+  --time-test / --no-time-test    It returns avg time only.
+  --error-test / --no-error-test  It returns avg relative error only.
+  -v, --verbose / --no-verbose    Default no-verbose.
+  --help                          Show this message and exit.
 ```
 
 ## Example of output
 ```
-$ ./knapsack.py --method ratio --path ./inst/knap_10.inst.dat 
+$ ./main.py --method ratio --path ./inst/knap_10.inst.dat --verbose
 OK      798 [0, 1, 1, 1, 0, 1, 1, 1, 0, 1]
 OK      942 [1, 1, 1, 0, 1, 1, 1, 1, 0, 1]
 OK      740 [0, 1, 1, 1, 0, 0, 1, 1, 1, 1]
