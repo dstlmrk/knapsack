@@ -21,7 +21,7 @@ class SolutionFile(File):
     """
 
     def __init__(self, path):
-        path = "./sol/" + path.split('/')[-1].replace('inst', 'sol')
+        path = "./data/sol/" + path.split('/')[-1].replace('inst', 'sol')
         super(SolutionFile, self).__init__(path)
 
 
