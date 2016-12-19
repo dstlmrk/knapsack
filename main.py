@@ -5,12 +5,12 @@ from __future__ import print_function
 import click
 import sys
 import time
-from knapsack import File, SolutionFile, Item
-from bruteforce import Bruteforce
-from ratio import Ratio
-from dynamic import Dynamic
-from branch_and_bound import BranchAndBound
-from fptas import FPTAS
+from knapsack.knapsack import File, SolutionFile
+from knapsack.bruteforce import Bruteforce
+from knapsack.ratio import Ratio
+from knapsack.dynamic import Dynamic
+from knapsack.branch_and_bound import BranchAndBound
+from knapsack.fptas import FPTAS
 
 
 @click.command()
