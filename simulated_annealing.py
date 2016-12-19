@@ -1,0 +1,1 @@
+# Simulované žíhání
