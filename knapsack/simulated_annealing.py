@@ -73,4 +73,8 @@ class SimulatedAnnealing(Knapsack):
                 elif math.e**((neighbor.price - state.price)/temperature) >= random.random():
                     state = neighbor
             temperature = self.cool(temperature)
+            # relativni chyba v case
+            # print("%s %s" % (temperature, ((self.expected_price - self.get_price(state.bit_array))
+            #   / float(self.expected_price) * 100)))
+
         return state.price, state.bit_array

@@ -92,6 +92,7 @@ def main(method, path, relative_error, solution,
 
             stime = time.time()
             price, configuration = knapsack.evaluate
+            # in seconds
             duration = time.time() - stime
 
             if not solution:
@@ -125,6 +126,7 @@ def main(method, path, relative_error, solution,
                     ))
             # break
 
+        # from seconds to milliseconds
         duration_avg = (duration_sum / len(dataset)) * 1000
         measured_relative_error_avg = (
             (measured_relative_error_sum / len(dataset)) * 100
@@ -141,6 +143,8 @@ def main(method, path, relative_error, solution,
                     (method, measured_relative_error_avg)
                 )
         else:
+            # pouze pro jedno mereni
+            # print("%s %s %s" % (temperature, duration_avg, measured_relative_error_avg))
             print(
                 "----------------------------------\n"
                 "= %s"
