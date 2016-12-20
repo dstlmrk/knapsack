@@ -16,21 +16,28 @@ from knapsack.simulated_annealing import SimulatedAnnealing
 
 @click.command()
 @click.option('--method', default="bruteforce",
-              help="bruteforce / ratio / bb / dynamic / fptas / sa / all (without simulated annealing)")
+              help="bruteforce / ratio / bb / dynamic / fptas / sa (simulated annealing) / all (without sa) [bruteforce]")
 @click.option('--path', default="./inst/knap_4.inst.dat",
-              help="Input file.")
+              help="Input file. [./inst/knap_4.inst.dat]")
 @click.option('--relative-error', default=0.5,
-              help="Relative error for FPTAS alg.")
+              help="Relative error for FPTAS alg. [0.5]")
 @click.option('--solution/--no-solution', default=True,
-              help="If solution file is available or not. Default true.")
+              help="If solution file is available or not. [True]")
 @click.option('--time-test/--no-time-test', default=False,
-              help="It returns avg time only.")
+              help="It returns avg time only. [False]")
 @click.option('--error-test/--no-error-test', default=False,
-              help="It returns avg relative error only.")
+              help="It returns avg relative error only. [False]")
 @click.option('-v', '--verbose/--no-verbose', default=False,
-              help="Default no-verbose.")
+              help="[False]")
+@click.option('-t', '--temperature', default=1000,
+              help="Init temperature for simulated annealing. [1000]")
+@click.option('-c', '--cooling', default=0.9,
+              help="Cooling for simulated annealing. [0.9]")
+@click.option('-i', '--inner-loop', default=5,
+              help="Number of iterations in inner loop for simulated annealing. [5]")
 def main(method, path, relative_error, solution,
-         time_test, error_test, verbose):
+         time_test, error_test, verbose, temperature,
+         cooling, inner_loop):
 
     if not 0 < relative_error <= 1:
         sys.exit("Relative error should be > 0 and <= 1")
@@ -81,10 +88,7 @@ def main(method, path, relative_error, solution,
             elif method == "fptas":
                 knapsack = FPTAS(relative_error, dataset[i], sol)
             elif method == "sa":
-                init_temperature = 100
-                cooling = 0.9
-                inner_loop = 5
-                knapsack = SimulatedAnnealing(init_temperature, cooling, inner_loop, dataset[i], sol)
+                knapsack = SimulatedAnnealing(temperature, cooling, inner_loop, dataset[i], sol)
 
             stime = time.time()
             price, configuration = knapsack.evaluate
@@ -93,9 +97,9 @@ def main(method, path, relative_error, solution,
             if not solution:
                 if method == methods[0] \
                 and method in ["dynamic", "bb", "bruteforce"]:
-                    # spravny vysledek
+                    # correct result
                     counted_solution.append(price)
-                # metoda bruteforce mi jiz spocitala spravny vysledek
+                # one method if them counted correct result
                 knapsack.expected_price = counted_solution[i]
                 knapsack.expected_configuration = None
 
