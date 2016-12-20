@@ -11,11 +11,12 @@ from knapsack.ratio import Ratio
 from knapsack.dynamic import Dynamic
 from knapsack.branch_and_bound import BranchAndBound
 from knapsack.fptas import FPTAS
+from knapsack.simulated_annealing import SimulatedAnnealing
 
 
 @click.command()
 @click.option('--method', default="bruteforce",
-              help="bruteforce/ratio/bb/dynamic/fptas/all")
+              help="bruteforce / ratio / bb / dynamic / fptas / sa / all (without simulated annealing)")
 @click.option('--path', default="./inst/knap_4.inst.dat",
               help="Input file.")
 @click.option('--relative-error', default=0.5,
@@ -79,9 +80,14 @@ def main(method, path, relative_error, solution,
                 knapsack = Dynamic(dataset[i], sol)
             elif method == "fptas":
                 knapsack = FPTAS(relative_error, dataset[i], sol)
+            elif method == "sa":
+                init_temperature = 100
+                cooling = 0.9
+                inner_loop = 5
+                knapsack = SimulatedAnnealing(init_temperature, cooling, inner_loop, dataset[i], sol)
 
             stime = time.time()
-            price, configuration = knapsack.evaluate()
+            price, configuration = knapsack.evaluate
             duration = time.time() - stime
 
             if not solution:

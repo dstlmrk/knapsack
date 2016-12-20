@@ -84,5 +84,11 @@ class Knapsack(object):
             max_price += item.price
         return max_price
 
+    def get_price(self, configuration):
+        price = 0
+        for i, val in enumerate(configuration):
+            price += val*self.items[i].price
+        return price
+
     def evaluate(self):
         pass
